@@ -59,6 +59,12 @@ SOURCE_EXTS = {".js", ".mjs", ".cjs", ".ts", ".tsx", ".jsx", ".py",
 CONFIG_EXTS = {".json", ".yaml", ".yml", ".toml", ".env", ".ini",
                ".properties", ".conf"}
 
+# .env variants meant to be committed as documentation. Tracking these is
+# correct; their keys feed the env-completeness check and their values
+# are placeholders (exempt from the secret regexes).
+ENV_EXAMPLE_NAMES = {".env.example", ".env.sample", ".env.template",
+                     "env.example", ".env.dist"}
+
 DEBUG_FLAG_PATTERNS = [
     ("node-dev", re.compile(r"(?i)NODE_ENV\s*[:=]\s*[\"']?development")),
     ("env-debug", re.compile(r"(?m)^\s*DEBUG\s*=\s*(?:true|1|y|yes)\b", re.I)),
@@ -182,7 +188,12 @@ def check_secrets(root, files):
         if scan_binary_hint(path):
             continue
         base = Path(rel).name
-        if base.startswith(".env") or base in ("env", "environment"):
+        if base in ENV_EXAMPLE_NAMES:
+            # Documentation files are expected to be tracked; their keys
+            # feed the env-completeness check. Fall through to the
+            # generic secret scan (placeholder values are exempt).
+            pass
+        elif base.startswith(".env") or base in ("env", "environment"):
             if not untracked:
                 env_committed.append(rel)
             continue
