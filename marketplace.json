@@ -1,0 +1,13 @@
+{
+  "name": "ship-audit-marketplace",
+  "plugins": [
+    {
+      "name": "ship-audit",
+      "source": "./",
+      "version": "0.1.0",
+      "description": "Pre-launch checklist gate: is it safe to show a real user. Static scans for secrets in tracked files, env completeness, debug flags, stack-trace leaks, rate limiting, auth basics, HTTPS/headers, and migration reversibility; BLOCKS launch on hard failures, WARNs on soft ones. Dynamic checks stay honest: verified in code or listed as needs manual verification, never claimed as PASS.",
+      "displayName": "Ship Audit",
+      "category": "developer-tools"
+    }
+  ]
+}
