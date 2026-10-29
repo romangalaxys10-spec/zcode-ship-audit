@@ -30,7 +30,7 @@ SECRET_PATTERNS = [
     ("slack-token", re.compile(r"\bxox[baprs]-[A-Za-z0-9-]{10,}\b")),
     ("private-key-block", re.compile(
         r"-----BEGIN (?:RSA |EC |DSA |OPENSSH )?PRIVATE KEY-----", re.M)),
-    ("openai-key", re.compile(r"\bsk-[A-Za-z0-9]{20,}\b")),
+    ("openai-key", re.compile(r"\bsk-(?:proj-)?[A-Za-z0-9_-]{20,}\b")),
     ("anthropic-key", re.compile(r"\bsk-ant-[A-Za-z0-9_-]{20,}\b")),
     ("jwt-secret-assign", re.compile(
         r"(?i)jwt[_-]?secret\s*[:=]\s*[\"']([^\"']{8,})[\"']")),
@@ -309,7 +309,9 @@ def env_file_keys(files):
         base = Path(rel).name
         if base in (".env.example", ".env", ".env.template", "env.example"):
             found_env_files.append(base)
-            if untracked:
+            # .env.example is documentation and may legitimately be
+            # untracked; count it either way.
+            if base == ".env" and untracked:
                 continue
             text = read_text(path)
             if text is None:

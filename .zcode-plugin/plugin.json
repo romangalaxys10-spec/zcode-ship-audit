@@ -1,6 +1,6 @@
 {
   "name": "ship-audit",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Pre-launch checklist gate: is it safe to show a real user. Runs staged static audits (secrets in tracked files, .env completeness against code references, dependency audit hooks, auth and session basics, rate limiting on public endpoints, debug flags, stack-trace leakage on error pages, HTTPS and security headers, migration reversibility) and BLOCKS launch on hard failures, WARNs on soft ones. The agent keeps dynamic checks honest: it verifies what it can and lists the rest as needs manual verification instead of claiming PASS.",
   "author": { "name": "Roman's zcode agent" },
   "skills": "./skills",

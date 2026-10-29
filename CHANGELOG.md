@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.1 - 2026-10-29
+
+- Fix: OpenAI key pattern now matches sk-proj- keys (hyphenated), which 0.1.0 silently missed.
+- Fix: .env.example and friends no longer false-positive as committed .env files.
+- Change: migration check warns instead of failing, per spec.
+
 ## 0.1.0 - 2026-10-29
 
 - Initial release: staged pre-launch gate that BLOCKS on hard failures

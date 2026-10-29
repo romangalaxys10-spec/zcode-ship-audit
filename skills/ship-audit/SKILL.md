@@ -41,7 +41,11 @@ It performs:
 1. **Secrets**: regex set over tracked files (API keys, tokens, private
    key blocks, long high-entropy assignments). Also flags `.env` files
    committed to git, and any file matching `*.pem`, `*.p12`, or a
-   hardcoded password assignment.
+   hardcoded password assignment. `.env.example` (and other
+   documentation variants: `.env.sample`, `.env.template`,
+   `.env.dist`) are exempt from the committed-.env flag: tracking them
+   is by design, and placeholder values are exempt from the secret
+   regexes.
 2. **Env completeness**: collects `process.env.X`, `os.environ[...]`,
    `getenv("X")` references from source, then diffs them against
    `.env.example` / `.env` / `.env.template` keys. A var the code reads
